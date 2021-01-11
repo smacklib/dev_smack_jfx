@@ -3,7 +3,7 @@
  * Released under Gnu Public License
  * Copyright © 2019 Michael G. Binz
  */
-module framework.smack {
+module framework.smack_jfx {
     requires transitive java.desktop;
     requires java.logging;
     requires java.prefs;
@@ -65,13 +65,4 @@ module framework.smack {
     exports org.jdesktop.util.converters;
     exports org.smack.application;
     exports org.smack.fx;
-    exports org.smack.util;
-    exports org.smack.util.collections;
-    exports org.smack.util.resource;
-    exports org.smack.util.io;
-    exports org.smack.util.xml;
-
-    // Needed for testing.
-    opens org.smack.util.resource;
-    opens org.smack;
 }
