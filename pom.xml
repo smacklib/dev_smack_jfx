@@ -3,16 +3,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>micbinz</groupId>
-  <artifactId>smack</artifactId>
-  <version>11.399</version>
-  <name>Smack</name>
-  <description>Framework</description>
+  <artifactId>smack-jfx</artifactId>
+  <version>11.0</version>
+  <name>SmackFx</name>
+  <description>Smack JavaFx specific parts.</description>
   
   <distributionManagement>
    <repository>
      <id>github</id>
      <name>GitHub Apache Maven Packages</name>
-     <url>https://maven.pkg.github.com/smacklib/dev_smack</url>
+     <url>https://maven.pkg.github.com/smacklib/dev_smack_jfx</url>
    </repository>
   </distributionManagement>
   
