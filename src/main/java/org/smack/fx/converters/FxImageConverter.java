@@ -3,7 +3,7 @@
  * Unpublished work.
  * Copyright © 2018 Michael G. Binz
  */
-package org.smack.util.converters;
+package org.smack.fx.converters;
 
 import java.io.InputStream;
 import java.net.URL;
