@@ -1,7 +1,11 @@
 package org.smack.fx.converters;
 
+import org.smack.fx.FxUtil;
 import org.smack.util.resource.ResourceConverterExtension;
 import org.smack.util.resource.ResourceConverterRegistry;
+
+import javafx.scene.input.KeyCombination;
+import javafx.scene.text.Font;
 
 /**
  * Registers the JavaFx converters.
@@ -18,16 +22,18 @@ public class Registrar extends ResourceConverterExtension
             registry.put( c.getType(), c );
         }
         {
-            var c = new FxFontConverter();
-            registry.put( c.getType(), c );
+            registry.put(
+                    Font.class,
+                    FxUtil::decodeFont );
         }
         {
             var c = new FxImageConverter();
             registry.put( c.getType(), c );
         }
         {
-            var c = new KeyCombinationConverter();
-            registry.put( c.getType(), c );
+            registry.put(
+                    KeyCombination.class,
+                    KeyCombination::valueOf );
         }
     }
 }
