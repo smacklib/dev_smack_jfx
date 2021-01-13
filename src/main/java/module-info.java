@@ -27,4 +27,7 @@ module framework.smack_jfx {
     exports org.jdesktop.beans;
     exports org.smack.fx;
     exports org.smack.fx.converters;
+
+    // Needed for testing.
+    opens org.smack.fx;
 }
