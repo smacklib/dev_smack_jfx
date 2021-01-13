@@ -25,25 +25,10 @@ public class FxImageConverter extends ResourceConverter
         super( Image.class );
     }
 
-    /**
-     * If path doesn't have a leading "/" then the resourcesDir
-     * is prepended, otherwise the leading "/" is removed.
-     */
-    private static String resourcePath(final String path, ResourceMap resourceMap) {
-        if (path == null) {
-            return null;
-        } else if (path.startsWith("/")) {
-            return (path.length() > 1) ? path.substring(1) : null;
-        } else {
-            return resourceMap.getResourceDir() + path;
-        }
-    }
-
     @Override
-    public Object parseString( String s, ResourceMap r ) throws Exception
+    public Object parseString( String s, ResourceMap unused ) throws Exception
     {
-        URL url = r.getClassLoader().getResource(
-                resourcePath( s, r ) );
+        URL url = new URL( s );
 
         // Loading the image using the Image( URL ) ctor is not
         // working when used in a OneJar-jar-file, thus the
