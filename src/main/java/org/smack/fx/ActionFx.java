@@ -8,10 +8,10 @@ package org.smack.fx;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import org.jdesktop.util.ResourceManager;
-import org.jdesktop.util.ResourceMap;
-import org.jdesktop.util.ServiceManager;
+import org.smack.util.ServiceManager;
 import org.smack.util.StringUtil;
+import org.smack.util.resource.ResourceManager;
+import org.smack.util.resource.ResourceMap;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -97,12 +97,12 @@ public class ActionFx
      */
     public ActionFx init( Class<?> context, String key )
     {
-        final org.jdesktop.util.ResourceManager rm =
-                ServiceManager.getApplicationService( org.jdesktop.util.ResourceManager.class );
-        final org.jdesktop.util.ResourceMap map =
+        final var rm =
+                ServiceManager.getApplicationService( ResourceManager.class );
+        final var map =
                 rm.getResourceMap( context );
 
-        final String resourceKey = String.format(
+        final var resourceKey = String.format(
                 "%s.%s.Action",
                 context.getSimpleName(),
                 key );
