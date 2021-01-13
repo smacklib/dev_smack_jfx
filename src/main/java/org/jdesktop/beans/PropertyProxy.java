@@ -26,14 +26,10 @@ public class PropertyProxy<T,B> implements PropertyType<T,B>
      */
     private final PropertyDescriptor _targetProperty;
 
-
-
     /**
      * The target object.
      */
     private final B _targetObject;
-
-
 
     /**
      * Create an instance of the proxy and ensures that the property is

@@ -46,11 +46,20 @@ public class FxResourceTest
     {
         assertNotNull( colorResource );
     }
+
+    /**
+     * FxResourceTest.fontResource = SansSerif-BOLDITALIC-40.5
+     */
     @Test
     public void testFont()
     {
         assertNotNull( fontResource );
+
+        assertEquals( 40.5, fontResource.getSize(), 0.0 );
+        assertEquals( "SansSerif", fontResource.getFamily() );
+        assertEquals( "Bold Italic", fontResource.getStyle() );
     }
+
     @Test
     public void testKeyCombination()
     {
