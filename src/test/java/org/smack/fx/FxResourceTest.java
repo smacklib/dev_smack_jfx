@@ -1,5 +1,6 @@
 package org.smack.fx;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -26,6 +27,8 @@ public class FxResourceTest
     private Font fontResource;
     @Resource
     private KeyCombination keyCombinationResource;
+    @Resource
+    private short shortResource;
 
     @Before
     public void testInit()
@@ -52,5 +55,13 @@ public class FxResourceTest
     public void testKeyCombination()
     {
         assertNotNull( keyCombinationResource );
+    }
+    /**
+     * Ensure that the primitive converters are available.
+     */
+    @Test
+    public void testShortResource()
+    {
+        assertEquals( 313, shortResource );
     }
 }
