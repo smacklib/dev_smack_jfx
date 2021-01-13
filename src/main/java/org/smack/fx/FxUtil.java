@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.jdesktop.util.ResourceManager;
-import org.jdesktop.util.ResourceManager.Resource;
-import org.jdesktop.util.ServiceManager;
 import org.smack.util.MathUtil;
+import org.smack.util.ServiceManager;
 import org.smack.util.StringUtil;
+import org.smack.util.resource.ResourceManager;
+import org.smack.util.resource.ResourceManager.Resource;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
