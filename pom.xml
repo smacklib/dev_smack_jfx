@@ -8,6 +8,14 @@
   <name>SmackFx</name>
   <description>Smack JavaFx specific parts.</description>
   
+  <repositories>
+	<repository>
+		<id>github</id>
+		<name>GitHub Apache Maven Packages</name>
+		<url>https://maven.pkg.github.com/smacklib/dev_smack</url>
+	</repository>
+  </repositories>
+  
   <distributionManagement>
    <repository>
      <id>github</id>
