@@ -1,10 +1,17 @@
 package org.smack.fx.converters;
 
-import org.smack.fx.FxUtil;
-import org.smack.util.resource.ResourceConverterExtension;
-import org.smack.util.resource.ResourceConverterRegistry;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.net.URL;
 
+import org.smack.fx.FxUtil;
+import org.smack.util.converters.StringConverter;
+import org.smack.util.converters.StringConverterExtension;
+
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
@@ -12,28 +19,52 @@ import javafx.scene.text.Font;
  *
  * @author MICBINZ
  */
-public class Registrar extends ResourceConverterExtension
+public class Registrar extends StringConverterExtension
 {
-    @Override
-    public void extendTypeMap( ResourceConverterRegistry registry )
+    private Color convertColor( String name )
     {
+        try
         {
-            var c = new FxColorConverter();
-            registry.put( c.getType(), c );
+            Field f = Color.class.getField( name );
+            if ( Color.class.equals( f.getType() ) && Modifier.isStatic( f.getModifiers() ) )
+                return (Color) f.get( null );
         }
+        catch ( Exception ignore )
         {
-            registry.put(
-                    Font.class,
-                    FxUtil::decodeFont );
+            // The field did not exist.
         }
+
+        return Color.web( name );
+    }
+
+    private Image convertImage( String s ) throws Exception
+    {
+        URL url = new URL( s );
+
+        try ( InputStream is = url.openStream() )
         {
-            var c = new FxImageConverter();
-            registry.put( c.getType(), c );
+            Image result = new Image( is );
+
+            if ( result.isError() )
+                throw result.getException();
+
+            return result;
         }
-        {
-            registry.put(
-                    KeyCombination.class,
-                    KeyCombination::valueOf );
-        }
+    }
+
+    @Override
+    public void extendTypeMap( StringConverter registry )
+    {
+        registry.put(
+                Color.class,
+                this::convertColor );
+        registry.put(
+                Font.class,
+                FxUtil::decodeFont );
+        registry.put(
+                KeyCombination.class,
+                KeyCombination::valueOf );
+        var c = new FxImageConverter();
+        registry.put( Image.class, this::convertImage );
     }
 }
