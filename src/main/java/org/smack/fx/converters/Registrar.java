@@ -64,7 +64,8 @@ public class Registrar extends StringConverterExtension
         registry.put(
                 KeyCombination.class,
                 KeyCombination::valueOf );
-        var c = new FxImageConverter();
-        registry.put( Image.class, this::convertImage );
+        registry.put(
+                Image.class,
+                this::convertImage );
     }
 }

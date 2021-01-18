@@ -13,17 +13,16 @@ module framework.smack_jfx {
     requires javafx.swing;
     requires transitive javafx.graphics;
 
-    uses org.smack.util.resource.ResourceConverterExtension;
+    uses org.smack.util.converters.StringConverterExtension;
 
     // All converters have to be registered here.  The ServiceLoader
     // uses this list. The ServiceLoader configuration file is not
     // needed with the module system.
-    provides org.smack.util.resource.ResourceConverterExtension with
+    provides org.smack.util.converters.StringConverterExtension with
         org.smack.fx.converters.Registrar;
 
     exports org.jdesktop.beans;
     exports org.smack.fx;
-    exports org.smack.fx.converters;
 
     // Needed for testing.
     opens org.smack.fx;
