@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>micbinz</groupId>
   <artifactId>smack_jfx</artifactId>
-  <version>11.1</version>
+  <version>11.2</version>
   <name>SmackFx</name>
   <description>Smack JavaFx specific parts.</description>
   
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>micbinz</groupId>
       <artifactId>smack</artifactId>
-      <version>11.402</version>
+      <version>11.403</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
     <dependency>
