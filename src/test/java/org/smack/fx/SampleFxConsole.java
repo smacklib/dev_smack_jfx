@@ -7,11 +7,10 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author michaelbinz
+ * @author micbinz
  */
 public class SampleFxConsole extends Application
 {
-
     private final FxConsole cons1 = new FxConsole();
     private final FxConsole cons2 = new FxConsole();
 
