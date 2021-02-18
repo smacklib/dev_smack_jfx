@@ -11,8 +11,8 @@ import javafx.stage.Stage;
  */
 public class SampleFxConsole extends Application
 {
-    private final FxConsole cons1 = new FxConsole();
-    private final FxConsole cons2 = new FxConsole();
+    private final FxConsole2 cons1 = new FxConsole2();
+    private final FxConsole2 cons2 = new FxConsole2();
 
     @Override
     public void init() throws Exception
