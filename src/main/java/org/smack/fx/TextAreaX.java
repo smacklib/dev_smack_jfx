@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-public class ScrollFreeTextArea extends StackPane
+public class TextAreaX extends StackPane
 {
     private Label label;
     private StackPane lblContainer ;
@@ -25,12 +25,12 @@ public class ScrollFreeTextArea extends StackPane
     private final double TOP_PADDING = 3D;
     private final double BOTTOM_PADDING = 6D;
 
-    public ScrollFreeTextArea(){
+    public TextAreaX(){
         super();
         configure();
     }
 
-    public ScrollFreeTextArea(String text)
+    public TextAreaX(String text)
     {
         configure();
         textArea.setText(text);
