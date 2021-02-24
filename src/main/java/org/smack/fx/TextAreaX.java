@@ -3,9 +3,9 @@
  */
 package org.smack.fx;
 
+import org.smack.util.StringUtil;
+
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -14,126 +14,157 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
+/**
+ * TODO:
+ * - Dynamically compute line height.
+ *
+ * @author MICBINZ
+ */
 public class TextAreaX extends StackPane
 {
-    private Label label;
-    private StackPane lblContainer ;
-    private TextArea textArea;
+    private final Label _label = new Label();
+    private final StackPane _lblContainer;
+    private final TextArea _textArea = new TextArea();
 
     private char NEW_LINE_CHAR = 10;
     private final double NEW_LINE_HEIGHT = 18D;
     private final double TOP_PADDING = 3D;
     private final double BOTTOM_PADDING = 6D;
 
-    public TextAreaX(){
-        super();
-        configure();
-    }
-
-    public TextAreaX(String text)
+    public TextAreaX()
     {
-        configure();
-        textArea.setText(text);
-    }
+        setAlignment(
+                Pos.TOP_LEFT);
 
-    private void configure(){
-        setAlignment(Pos.TOP_LEFT);
+        _textArea.setWrapText(true);
+        _textArea.getStyleClass().add("text-area-x");
 
-        this.textArea =new TextArea();
-        this.textArea.setWrapText(true);
-        this.textArea.getStyleClass().add("scroll-free-text-area");
+        _label.setWrapText(true);
+        _label.prefWidthProperty().bind(_textArea.widthProperty());
+        _label.textProperty().bind(_textArea.textProperty());
 
-
-        this.label =new Label();
-        this.label.setWrapText(true);
-        this.label.prefWidthProperty().bind(this.textArea.widthProperty());
-        this.label.textProperty().bind(this.textArea.textProperty());
-
-        this.lblContainer = new StackPane(label);
-        lblContainer.setAlignment(Pos.TOP_LEFT);
-        lblContainer.setPadding(new Insets(4,7,7,7));
+        _lblContainer = new StackPane(_label);
+        _lblContainer.setAlignment(
+                Pos.TOP_LEFT);
+        _lblContainer.setPadding(
+                new Insets(4,7,7,7));
 
         // Binding the container width to the TextArea width.
-        lblContainer.maxWidthProperty().bind(textArea.widthProperty());
+        _lblContainer.maxWidthProperty().bind(_textArea.widthProperty());
 
-        textArea.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> paramObservableValue,   String paramT1, String value) {
-                layoutForNewLine(textArea.getText());
-            }
-        });
+        _textArea.textProperty().addListener(
+                (ov,o,n) -> handleText( _textArea.getText(), "text" ) );
 
-        label.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> paramObservableValue,   Number paramT1, Number paramT2) {
-                layoutForNewLine(textArea.getText());
-            }
-        });
+        _label.heightProperty().addListener(
+                (ov,o,n) -> handleHeight( _textArea.getText(), "height" ) );
 
-        getChildren().addAll( new Group( lblContainer ),textArea);
+        System.out.println( "Setup: lh=" + _label.getHeight() );
     }
 
-    private void layoutForNewLine(String text){
-        if(text!=null && text.length()>0 &&
-                    text.charAt(text.length()-1) == NEW_LINE_CHAR )
+    /**
+     *
+     * @param text
+     * @param what
+     */
+    private void handleText( String text, String what )
+    {
+        System.out.println( "Entry: " + what );
+        System.out.println( _label.getPrefHeight() );
+        System.out.println( _label.getHeight() );
+        System.out.println( _label.getMinHeight() );
+
+        // Insert the component when is switches from no content to valid content.
+        if ( null == _textArea.getParent() && StringUtil.hasContent( text ) )
+            getChildren().addAll( new Group( _lblContainer ), _textArea );
+
+//        if( text!=null && text.length()>0 && text.charAt(text.length()-1) == NEW_LINE_CHAR )
+//        {
+//            System.out.println( "a" );
+//            _textArea.setPrefHeight(_label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+//            _textArea.setMinHeight(_label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+//            System.out.println( "labHeight=" + _label.getHeight() );
+//        }
+//        else
+//        {
+//            System.out.println( "b" );
+//            _textArea.setPrefHeight(_label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
+//            _textArea.setMinHeight(_label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
+//        }
+    }
+
+    /**
+     *
+     * @param text
+     * @param what
+     */
+    private void handleHeight( String text, String what )
+    {
+        System.out.println( "Entry: " + what );
+        System.out.println( _label.getPrefHeight() );
+        System.out.println( _label.getHeight() );
+        System.out.println( _label.getMinHeight() );
+
+        // Insert the component when is switches from no content to valid content.
+//        if ( null == _textArea.getParent() && StringUtil.hasContent( text ) )
+//            getChildren().addAll( new Group( _lblContainer ), _textArea );
+
+        if( text!=null && text.length()>0 && text.charAt(text.length()-1) == NEW_LINE_CHAR )
         {
-            textArea.setPrefHeight(label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
-            textArea.setMinHeight(label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+            System.out.println( "a" );
+            _textArea.setPrefHeight(_label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+            _textArea.setMinHeight(_label.getHeight() + NEW_LINE_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+            System.out.println( "labHeight=" + _label.getHeight() );
         }
         else
         {
-            textArea.setPrefHeight(label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
-            textArea.setMinHeight(label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
+            System.out.println( "b lh=" + _label.getHeight() );
+            _textArea.setPrefHeight(_label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
+            _textArea.setMinHeight(_label.getHeight() + TOP_PADDING + BOTTOM_PADDING);
         }
     }
 
     public Font getFont()
     {
-        return textArea.getFont();
+        return _textArea.getFont();
     }
 
     public ObjectProperty<Font> fontProperty()
     {
-        return textArea.fontProperty();
+        return _textArea.fontProperty();
     }
 
     public void setPrefRowCount( int i )
     {
-        textArea.setPrefRowCount( i );
+        _textArea.setPrefRowCount( i );
     }
 
     public void setWrapText( boolean b )
     {
-        textArea.setWrapText( b );
+        _textArea.setWrapText( b );
     }
 
     public void setEditable( boolean b )
     {
-        textArea.setEditable( b );
+        _textArea.setEditable( b );
     }
 
     public int getLength()
     {
-        return textArea.getLength();
+        return _textArea.getLength();
     }
 
     public void appendText( String string )
     {
-        textArea.appendText( string );
+        _textArea.appendText( string );
     }
 
     public void setText( String substring )
     {
-        textArea.setText( substring );
+        _textArea.setText( substring );
     }
 
     public String getText()
     {
-        return textArea.getText();
+        return _textArea.getText();
     }
-
-//    public int getPrefRowCount()
-//    {
-//        return textArea.getPrefRowCount();
-//    }
 }
