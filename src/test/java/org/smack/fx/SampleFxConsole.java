@@ -16,7 +16,7 @@ public class SampleFxConsole extends Application
     public void start(Stage primaryStage)
     {
         var cons1 = makeConsole();
-        var cons2 = makeConsole();
+        var cons2 = new FxConsole3();
 
         cons1.setInputReceiver( cons2.getOut() );
         cons2.setInputReceiver( cons1.getOut() );
