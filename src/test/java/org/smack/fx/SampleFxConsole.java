@@ -15,7 +15,7 @@ public class SampleFxConsole extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        var cons1 = makeConsole();
+        var cons1 = new FxConsole3();
         var cons2 = new FxConsole3();
 
         cons1.setInputReceiver( cons2.getOut() );

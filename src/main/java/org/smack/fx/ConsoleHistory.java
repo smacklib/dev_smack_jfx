@@ -1,15 +1,29 @@
 package org.smack.fx;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.smack.util.StringUtil;
+
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 class ConsoleHistory extends ScrollPane
 {
+    private int MAX_LEN = 100;
+
     enum LineType { History, Output };
 
     private final VBox _vbox = new VBox();
+
+    private List<String> _history =
+            new ArrayList<>();
+    private int _currentLine =
+            -1;
 
     ConsoleHistory()
     {
@@ -25,7 +39,53 @@ class ConsoleHistory extends ScrollPane
     void addHistoryLine( String line )
     {
         var label = makeLabel( line, LineType.History );
-        _vbox.getChildren().add( label );
+
+        var list = _vbox.getChildren();
+
+        list.add( label );
+
+        //
+        // History handling.
+        //
+
+        // No empty strings in history.
+        if ( StringUtil.isEmpty( line ) )
+            return;
+
+        // No duplicate strings in history.
+        _history.remove( line );
+
+        // Bound size.
+        if ( _history.size() == MAX_LEN )
+            _history.remove( 0 );
+
+        _history.add( line );
+
+        // Reset current position.
+        _currentLine = _history.size();
+    }
+
+    String previousHistoryLine()
+    {
+        if ( _currentLine < 0 )
+            return null;
+        if ( _currentLine > 0 )
+            _currentLine--;
+
+        return _history.get( _currentLine );
+    }
+
+    /**
+     * @return A newer history line or null at the begin of history.
+     */
+    String nextHistoryLine()
+    {
+        if ( _currentLine < 0 )
+            return null;
+        if ( ++_currentLine == _history.size() )
+            return null;
+
+        return _history.get( _currentLine );
     }
 
     void addOutput( String text )
@@ -41,7 +101,21 @@ class ConsoleHistory extends ScrollPane
 
         s.setWrapText( true );
         s.setFocusTraversable( true );
-        s.setUserData( type );
+
+        setUserData( s, text, type );
+
         return s;
     }
+
+    private void setUserData( Node node, String text, LineType type )
+    {
+        node.setUserData( new Pair<LineType, String>( type, text ) );
+    }
+
+    @SuppressWarnings("unchecked")
+    private Pair<LineType, String> getUserData( Node node )
+    {
+        return (Pair<LineType, String>)node.getUserData();
+    }
 }
+
