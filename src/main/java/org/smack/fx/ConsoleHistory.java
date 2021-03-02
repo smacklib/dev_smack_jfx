@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.smack.util.StringUtil;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Pair;
 
 class ConsoleHistory extends ScrollPane
@@ -25,6 +27,15 @@ class ConsoleHistory extends ScrollPane
     private int _currentLine =
             -1;
 
+    public final SimpleObjectProperty<Font> fontProperty =
+            new SimpleObjectProperty<Font>(
+                    this,
+                    "font",
+                    new Label().getFont() );
+
+    /**
+     *
+     */
     ConsoleHistory()
     {
         setContent( _vbox );
@@ -111,6 +122,7 @@ class ConsoleHistory extends ScrollPane
 
         s.setWrapText( true );
         s.setFocusTraversable( true );
+        s.fontProperty().bind( fontProperty );
 
         setUserData( s, text, type );
 
