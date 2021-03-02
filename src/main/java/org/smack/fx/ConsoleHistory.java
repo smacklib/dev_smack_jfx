@@ -36,6 +36,14 @@ class ConsoleHistory extends ScrollPane
                 setVvalue( getVmax() ) );
     }
 
+    /**
+     * Add a command line to the history.  The strategy is to not keep any
+     * duplicate lines in the history and to add recent lines always to the
+     * recent history.  This means that rarely used entries move towards
+     * the old end of the history and are thrown out first.
+     *
+     * @param commandLine The command line to put into the history.
+     */
     void addHistoryLine( String line )
     {
         var label = makeLabel( line, LineType.History );
@@ -81,6 +89,8 @@ class ConsoleHistory extends ScrollPane
     String nextHistoryLine()
     {
         if ( _currentLine < 0 )
+            return null;
+        if ( _currentLine == _history.size() )
             return null;
         if ( ++_currentLine == _history.size() )
             return null;
