@@ -32,7 +32,6 @@ class ConsoleHistory extends ScrollPane
                     this,
                     "font",
                     new Label().getFont() );
-
     /**
      *
      */
@@ -122,6 +121,7 @@ class ConsoleHistory extends ScrollPane
 
         s.setWrapText( true );
         s.setFocusTraversable( true );
+        s.fontProperty().set( fontProperty.get() );
         s.fontProperty().bind( fontProperty );
 
         setUserData( s, text, type );
