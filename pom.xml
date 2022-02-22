@@ -61,7 +61,7 @@
     <dependency>
       <groupId>micbinz</groupId>
       <artifactId>smack</artifactId>
-      <version>11.403</version>
+      <version>11.405</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
     <dependency>

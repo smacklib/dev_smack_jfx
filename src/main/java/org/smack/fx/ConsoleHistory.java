@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -110,7 +111,7 @@ class ConsoleHistory extends ScrollPane
 
     void addOutput( String text )
     {
-        var label = makeLabel( text, LineType.Output );
+        var label = makeTextField( text, LineType.Output );
         label.setBackground( FxUtil.getBackground( Color.AQUAMARINE ) );
         _vbox.getChildren().add( label );
     }
@@ -120,6 +121,21 @@ class ConsoleHistory extends ScrollPane
         var s = new Label( text );
 
         s.setWrapText( true );
+        s.setFocusTraversable( true );
+        s.fontProperty().set( fontProperty.get() );
+        s.fontProperty().bind( fontProperty );
+
+        setUserData( s, text, type );
+
+        return s;
+    }
+
+    private TextField makeTextField( String text, LineType type )
+    {
+        var s = new TextField( text );
+
+        s.setPadding( new javafx.geometry.Insets( 0, 0, 0, 0 ) );
+        s.setEditable( false );
         s.setFocusTraversable( true );
         s.fontProperty().set( fontProperty.get() );
         s.fontProperty().bind( fontProperty );
