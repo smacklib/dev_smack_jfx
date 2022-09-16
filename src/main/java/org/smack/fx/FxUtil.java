@@ -1,7 +1,6 @@
 /* $Id$
  *
- * Unpublished work.
- * Copyright © 2018 Michael G. Binz
+ * Copyright © 2018-21 Michael G. Binz
  */
 package org.smack.fx;
 
