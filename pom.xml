@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>micbinz</groupId>
   <artifactId>smack_jfx</artifactId>
-  <version>11.3-SNAPSHOT</version>
+  <version>11.3</version>
   <name>SmackFx</name>
   <description>Smack JavaFx specific parts.</description>
   
