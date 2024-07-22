@@ -1,7 +1,7 @@
-/* $Id$
+/* https://github.com/smacklib/dev_smack_jfx
  *
  * Unpublished work.
- * Copyright © 2016 Michael G. Binz
+ * Copyright © 2016-2024 Michael G. Binz
  */
 package org.smack.fx;
 

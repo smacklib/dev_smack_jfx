@@ -77,10 +77,9 @@ public class PropertyLink
         // Anyway, we fail in both cases at runtime.
         try
         {
-            // TODO: Create the property in this special way to prevent
-            // type warnings. I think the typing of JBOPB is plainly wrong.
-            JavaBeanObjectPropertyBuilder<Object> tgtBld =
-                    new JavaBeanObjectPropertyBuilder<>();
+            @SuppressWarnings("unchecked")
+			JavaBeanObjectPropertyBuilder<Object> tgtBld =
+                    JavaBeanObjectPropertyBuilder.create();
             tgtBld
                 .name( propTgtName )
                 .bean( target );
