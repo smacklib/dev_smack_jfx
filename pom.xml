@@ -5,7 +5,7 @@
 
   <groupId>smacklib</groupId>
   <artifactId>smack_jfx</artifactId>
-  <version>21.4</version>
+  <version>21.5</version>
   <name>SmackFx</name>
   <description>Smack JavaFx specific parts.</description>
 
